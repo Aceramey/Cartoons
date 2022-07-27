@@ -1,3 +1,7 @@
+"""
+to do:
+1. list how many episodes watched out of total on select prompt.
+"""
 import random
 import os
 
@@ -128,20 +132,23 @@ def main():
             else:
                 print("already generated {0}".format(combo))
                 main()
-            while True:
-                choice = input("y to generate another, n to pick new cartoon, nw to see how many episodes you watched, x to exit: ")
-                if choice.lower() == "y":
-                    main()
-                elif choice.lower() == "n":
-                    pick()
-                elif choice.lower() == "x":
-                    exit()
-                elif choice.lower() == "nw":
-                    print("You have watched {0}/{1} episodes".format(len(watched), str(int(seasons) * int(episodes))))
-                    continue
-                else:
-                    print("{0} is not a valid option".format(choice))
-                    continue
+            if len(watched) != int(seasons) * int(episodes):
+                while True:
+                    choice = input("y to generate another, n to pick new cartoon, nw to see how many episodes you watched, x to exit: ")
+                    if choice.lower() == "y":
+                        main()
+                    elif choice.lower() == "n":
+                        pick()
+                    elif choice.lower() == "x":
+                        exit()
+                    elif choice.lower() == "nw":
+                        print("You have watched {0}/{1} episodes".format(len(watched), str(int(seasons) * int(episodes))))
+                        continue
+                    else:
+                        print("{0} is not a valid option".format(choice))
+                        continue
+            else:
+                main()
         except RecursionError:
             main()
     else:
